@@ -4,11 +4,6 @@
 
 import { useState, useEffect } from 'react';
 
-export const metadata = {
-  title: 'Your entry - entry Tracker',
-  description: 'View and update your entry entries.',
-};
-
 export default function entryPage() {
   const [entry, setEntry] = useState('');
   const [message, setMessage] = useState('');
