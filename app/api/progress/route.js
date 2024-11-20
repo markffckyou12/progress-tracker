@@ -15,10 +15,10 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    const { progress } = await request.json();
+    const { entry } = await request.json();
     const result = await db.query(
       'INSERT INTO progress_entries (entry) VALUES ($1) RETURNING *',
-      [progress]
+      [entry]
     );
     return NextResponse.json({ success: true, data: result.rows[0] });
   } catch (error) {
