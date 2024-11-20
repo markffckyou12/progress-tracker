@@ -4,11 +4,6 @@ import './globals.css';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export const metadata = {
-  title: 'Progress Tracker',
-  description: 'Track your progress over time.',
-};
-
 export default function RootLayout({ children }) {
   const pathname = usePathname();
 
