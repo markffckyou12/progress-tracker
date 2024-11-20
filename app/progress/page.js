@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from 'react';
 
-export default function entryPage() {
+export default function EntryPage() {
   const [entry, setEntry] = useState('');
   const [message, setMessage] = useState('');
   const [entries, setEntries] = useState([]);
