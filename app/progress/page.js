@@ -1,22 +1,22 @@
-// app/progress/page.js
+// app/entry/page.js
 
 'use client';
 
 import { useState, useEffect } from 'react';
 
 export const metadata = {
-  title: 'Your Progress - Progress Tracker',
-  description: 'View and update your progress entries.',
+  title: 'Your entry - entry Tracker',
+  description: 'View and update your entry entries.',
 };
 
-export default function ProgressPage() {
-  const [progress, setProgress] = useState('');
+export default function entryPage() {
+  const [entry, setEntry] = useState('');
   const [message, setMessage] = useState('');
   const [entries, setEntries] = useState([]);
 
   const fetchEntries = async () => {
     try {
-      const res = await fetch('/api/progress');
+      const res = await fetch('/api/entry');
       const data = await res.json();
       if (data.success) {
         setEntries(data.data);
@@ -38,22 +38,22 @@ export default function ProgressPage() {
     setMessage('Submitting...');
 
     try {
-      const res = await fetch('/api/progress', {
+      const res = await fetch('/api/entry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ progress }),
+        body: JSON.stringify({ entry }),
       });
 
       const data = await res.json();
 
       if (data.success) {
-        setMessage('Progress saved!');
-        setProgress('');
+        setMessage('Entry saved!');
+        setEntry('');
         fetchEntries(); // Refresh entries
       } else {
-        setMessage('Error saving progress.');
+        setMessage('Error saving entry.');
       }
     } catch (error) {
       console.error(error);
@@ -63,14 +63,14 @@ export default function ProgressPage() {
 
   return (
     <main>
-      <h1>Your Progress</h1>
+      <h1>Your entry</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Progress:
+          entry:
           <input
             type="text"
-            value={progress}
-            onChange={(e) => setProgress(e.target.value)}
+            value={entry}
+            onChange={(e) => setEntry(e.target.value)}
           />
         </label>
         <button type="submit">Save Progress</button>
@@ -78,9 +78,9 @@ export default function ProgressPage() {
       <p>{message}</p>
       <h2>Previous Entries:</h2>
       <ul>
-        {entries.map((entry) => (
+        {entries.map((item) => (
           <li key={entry.id}>
-            {entry.entry} (on {new Date(entry.created_at).toLocaleString()})
+            {entry.entry} (on {new Date(item.created_at).toLocaleString()})
           </li>
         ))}
       </ul>
